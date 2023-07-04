@@ -55,6 +55,7 @@ flutter:
 
   assets:
     - Assets/mercury.png
+    - Assets/google_logo.png
   uses-material-design: true
 
   # An image asset can refer to one or more resolution-specific "variants", see
