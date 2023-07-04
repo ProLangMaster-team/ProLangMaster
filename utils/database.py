@@ -11,3 +11,5 @@ client = MongoClient(uri, server_api=ServerApi('1'), tls=True)
 # Send a ping to confirm a successful connection
 client.admin.command('ping')
 print("Pinged your deployment. You successfully connected to MongoDB!")
+
+users_db = client["ProLangMaster"]["users"]
