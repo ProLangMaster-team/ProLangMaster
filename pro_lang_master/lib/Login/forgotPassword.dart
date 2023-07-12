@@ -1,3 +1,6 @@
+import 'dart:ffi';
+
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -75,16 +78,13 @@ class forgotPassword extends State<ForgotPassword> {
                 child: Text("Send", style: TextStyle(fontSize: 18)),
               ),
             ),
-            Container(
-              margin: const EdgeInsetsDirectional.fromSTEB(0, 43, 0, 0),
-              child: const Text(
-                "Back to Sign in",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
+            TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white,
+                textStyle: const TextStyle(fontSize: 18),
               ),
+              onPressed: () {},
+              child: const Text('Back to sign in'),
             ),
             Container(
               margin: const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
@@ -101,13 +101,13 @@ class forgotPassword extends State<ForgotPassword> {
               width: 150,
               padding: const EdgeInsetsDirectional.all(10),
               child: const TextButton(
-                onPressed: null,
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStatePropertyAll<Color>(Color(0XFF48386A)),
                   foregroundColor:
                       MaterialStatePropertyAll<Color>(Colors.white),
                 ),
+                onPressed: null,
                 child: Text("Sign up", style: TextStyle(fontSize: 18)),
               ),
             ),
