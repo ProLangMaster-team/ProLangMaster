@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pro_lang_master/Login/createpassword.dart';
 import 'package:pro_lang_master/Login/forgotPassword.dart';
 import 'package:pro_lang_master/Login/login.dart';
+import 'package:pro_lang_master/Login/verification.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const ForgotPassword(),
+      home: const Verification(),
     );
   }
 }
@@ -40,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[ForgotPassword()],
+          children: <Widget>[Verification()],
         ),
       ),
       floatingActionButton: FloatingActionButton(
