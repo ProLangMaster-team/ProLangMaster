@@ -1,13 +1,15 @@
+from pydantic import StrictStr, EmailStr
 from pydantic.main import BaseModel
 
 
-class LoginCreds(BaseModel):
-    user_name: str
-    password: str
+class Email(BaseModel):
+    email: EmailStr
 
 
-class SignupCreds(BaseModel):
-    name: str
-    email: str
-    password: str
-    confirm_password: str
+class LoginCreds(Email):
+    password: StrictStr
+
+
+class SignupCreds(LoginCreds):
+    full_name: StrictStr
+    confirm_password: StrictStr
