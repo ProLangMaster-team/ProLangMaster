@@ -3,6 +3,10 @@ import 'package:pro_lang_master/Login/createpassword.dart';
 import 'package:pro_lang_master/Login/forgotPassword.dart';
 import 'package:pro_lang_master/Login/login.dart';
 import 'package:pro_lang_master/Login/verification.dart';
+import 'package:pro_lang_master/Login/login.dart';
+import 'package:pro_lang_master/Login/selectLanguage.dart';
+import 'package:pro_lang_master/Login/verification.dart';
+import 'package:pro_lang_master/Login/Fluencylevel.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +22,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Verification(),
+      home: const LoginScreen(),
     );
   }
 }
@@ -40,16 +44,17 @@ class _MyHomePageState extends State<MyHomePage> {
       //   title: Text(widget.title),
       // ),
       body: Center(
-        child: Column(
+          child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[Verification()],
+          children: <Widget>[
+            LoginScreen()
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: null,
         tooltip: 'Increment',
         child: Icon(Icons.add),
-      ),
-    );
+      ),);
   }
 }
