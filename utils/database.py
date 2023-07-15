@@ -14,3 +14,4 @@ client.admin.command('ping')
 print("Pinged your deployment. You successfully connected to MongoDB!")
 
 users_db = client["ProLangMaster"]["users"]
+courses_db = client["ProLangMaster"]["courses"]
