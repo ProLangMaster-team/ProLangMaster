@@ -1,0 +1,4 @@
+import os
+
+MONGODB_USERNAME = os.environ["MONGODB_USERNAME"]
+MONGODB_PASS = os.environ["MONGODB_PASS"]
