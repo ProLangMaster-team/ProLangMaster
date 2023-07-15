@@ -1,16 +1,14 @@
-import 'dart:ffi';
-
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({Key? key}) : super(key: key);
+class Verification extends StatefulWidget {
+  const Verification({Key? key}) : super(key: key);
 
   @override
-  forgotPassword createState() => forgotPassword();
+  verification createState() => verification();
 }
 
-class forgotPassword extends State<ForgotPassword> {
+class verification extends State<Verification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +27,7 @@ class forgotPassword extends State<ForgotPassword> {
             Container(
               margin: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 79.37),
               child: const Text(
-                "Forgot Password",
+                "Verification",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 32,
@@ -41,7 +39,7 @@ class forgotPassword extends State<ForgotPassword> {
             Container(
               margin: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 43),
               child: const Text(
-                "Enter Email Address",
+                "Enter verification code",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 16,
@@ -50,19 +48,29 @@ class forgotPassword extends State<ForgotPassword> {
               ),
             ),
             Container(
-              width: 300,
-              height: 70,
-              child: const TextField(
-                  decoration: InputDecoration(
-                filled: true,
-                suffixIcon: Icon(Icons.email),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black),
-                  borderRadius: BorderRadius.all(Radius.circular(49)),
-                ),
-                fillColor: Colors.white,
-                hintText: 'example@gmail.com',
-              )),
+              padding: EdgeInsetsDirectional.fromSTEB(28, 20, 28, 12),
+              decoration: BoxDecoration(
+                  color: const Color(0XFF826FA9),
+                  borderRadius: BorderRadius.circular(30)),
+              child: Column(children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _textfieldOTP(first: true, last: false),
+                    _textfieldOTP(first: true, last: false),
+                    _textfieldOTP(first: true, last: false),
+                    _textfieldOTP(first: true, last: true),
+                  ],
+                )
+              ]),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white,
+                textStyle: const TextStyle(fontSize: 12),
+              ),
+              onPressed: () {},
+              child: const Text('Didn\'t recieve a code, Resend'),
             ),
             Container(
               width: 150,
@@ -75,16 +83,8 @@ class forgotPassword extends State<ForgotPassword> {
                   foregroundColor:
                       MaterialStatePropertyAll<Color>(Colors.white),
                 ),
-                child: Text("Send", style: TextStyle(fontSize: 18)),
+                child: Text("Enter", style: TextStyle(fontSize: 18)),
               ),
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.white,
-                textStyle: const TextStyle(fontSize: 18),
-              ),
-              onPressed: () {},
-              child: const Text('Back to sign in'),
             ),
             Container(
               margin: const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
@@ -101,17 +101,49 @@ class forgotPassword extends State<ForgotPassword> {
               width: 150,
               padding: const EdgeInsetsDirectional.all(10),
               child: const TextButton(
+                onPressed: null,
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStatePropertyAll<Color>(Color(0XFF48386A)),
                   foregroundColor:
                       MaterialStatePropertyAll<Color>(Colors.white),
                 ),
-                onPressed: null,
                 child: Text("Sign up", style: TextStyle(fontSize: 18)),
               ),
             ),
           ]),
+        ),
+      ),
+    );
+  }
+
+  _textfieldOTP({required bool first, last}) {
+    return Container(
+      height: 55,
+      child: AspectRatio(
+        aspectRatio: 0.7,
+        child: TextField(
+          autofocus: true,
+          onChanged: (value) {
+            if (value.length == 1 && last == false) {
+              FocusScope.of(context).nextFocus();
+            }
+            if (value.length == 1 && first == false) {
+              FocusScope.of(context).previousFocus();
+            }
+          },
+          showCursor: false,
+          readOnly: false,
+          textAlign: TextAlign.center,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+          keyboardType: TextInputType.number,
+          maxLength: 1,
+          decoration: InputDecoration(
+              counter: Offstage(),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(width: 2, color: Colors.black),
+                borderRadius: BorderRadius.circular(30),
+              )),
         ),
       ),
     );
