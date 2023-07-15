@@ -60,6 +60,17 @@ flutter:
     - Assets/google_logo.png
   uses-material-design: true
 
+<<<<<<< Updated upstream
+=======
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - Assets/mercury.png
+    - Assets/google_logo.png
+    - Assets/India.jpg
+    - Assets/pakistan.jpg
+    - Assets/canada.jpg
+    - Assets/unitedKingdom.jpg
+>>>>>>> Stashed changes
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

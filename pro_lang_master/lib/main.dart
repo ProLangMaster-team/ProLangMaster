@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pro_lang_master/Login/login.dart';
+<<<<<<< Updated upstream
+=======
+import 'package:pro_lang_master/Login/selectLanguage.dart';
+import 'package:pro_lang_master/Login/verification.dart';
+import 'package:pro_lang_master/Login/Fluencylevel.dart';
+>>>>>>> Stashed changes
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +21,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+<<<<<<< Updated upstream
       home: const LoginScreen(),
+=======
+      home: const FluencyLevel(),
+>>>>>>> Stashed changes
     );
   }
 }
@@ -40,9 +50,13 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
           child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+<<<<<<< Updated upstream
           children: <Widget>[
             LoginScreen()
           ],
+=======
+          children: <Widget>[FluencyLevel()],
+>>>>>>> Stashed changes
         ),
       ),
       floatingActionButton: FloatingActionButton(
