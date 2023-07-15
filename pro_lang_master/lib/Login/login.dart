@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:email_validator/email_validator.dart';
 
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
