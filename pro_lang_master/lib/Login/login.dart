@@ -3,7 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:email_validator/email_validator.dart';
+import 'package:pro_lang_master/HomePage/selectLanguage.dart';
+import 'package:pro_lang_master/Login/forgotPassword.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -35,7 +36,7 @@ class loginScreen extends State<LoginScreen> {
               child: Image.asset('Assets/mercury.png'),
             ),
             errorCase
-                ? Text(
+                ? const Text(
               'Username or password incorrect',
               style: TextStyle(
                 fontSize: 18,
@@ -69,7 +70,7 @@ class loginScreen extends State<LoginScreen> {
                   obscureText: passwordHidden,
                   decoration: InputDecoration(
                       filled: true,
-                      border: OutlineInputBorder(
+                      border: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                       ),
@@ -102,12 +103,20 @@ class loginScreen extends State<LoginScreen> {
                   ),
                   Container(
                     margin: const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                    child: const Text(
-                      "fogot password?",
-                      style: TextStyle(
+                    child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ForgotPassword()),
+                          );
+                        });
+                      },
+                      child: const Text("forgot password?",
+                        style: TextStyle(
                         color: Colors.black,
                         fontSize: 16,
-                      ),
+                      ),),
                     ),
                   ),
                 ],
@@ -210,14 +219,11 @@ class loginScreen extends State<LoginScreen> {
     print(emailController.text);
     print(passwordController.text);
     var requestBody = {
-      "user_name": emailController.text,
+      "email": emailController.text,
       "password": passwordController.text,
     };
     final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
-    // var response = await http.get(Uri.parse('https://6e36-184-144-65-222.ngrok-free.app/user/login'));
-    Uri uri = Uri.parse("https://6e36-184-144-65-222.ngrok-free.app/login");
-    // uri.replace(queryParameters: requestBody);
-    print(uri);
+    Uri uri = Uri.parse("https://e2c7-137-207-232-218.ngrok-free.app/user/login");
     var response =
     await http.post(uri, headers: headers, body: json.encode(requestBody));
     print(response.statusCode);
@@ -228,9 +234,12 @@ class loginScreen extends State<LoginScreen> {
         errorCase = true;
       });
     } else {
-      // TODO: logic to redirect to next screen
       setState(() {
         errorCase = false;
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => selectLanguage()),
+        );
       });
     }
   }
