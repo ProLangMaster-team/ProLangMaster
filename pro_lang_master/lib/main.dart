@@ -4,9 +4,9 @@ import 'package:pro_lang_master/Login/forgotPassword.dart';
 import 'package:pro_lang_master/Login/login.dart';
 import 'package:pro_lang_master/Login/verification.dart';
 import 'package:pro_lang_master/Login/login.dart';
-import 'package:pro_lang_master/Login/selectLanguage.dart';
+import 'package:pro_lang_master/HomePage/selectLanguage.dart';
 import 'package:pro_lang_master/Login/verification.dart';
-import 'package:pro_lang_master/Login/Fluencylevel.dart';
+import 'package:pro_lang_master/HomePage/Fluencylevel.dart';
 
 void main() {
   runApp(const MyApp());

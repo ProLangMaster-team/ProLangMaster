@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:pro_lang_master/HomePage/Fluencylevel.dart';
 
 class selectLanguage extends StatefulWidget {
   const selectLanguage({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class chooseLanguage extends State<selectLanguage> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Color(0XFF826FA9),
-        leading: BackButton(
+        leading: const BackButton(
           color: Colors.white,
         ),
       ),
@@ -58,7 +59,7 @@ class chooseLanguage extends State<selectLanguage> {
                         foregroundColor: Colors.white,
                         textStyle: const TextStyle(fontSize: 18),
                       ),
-                      onPressed: () {},
+                      onPressed: () {languageSelected('Hindi');},
                       child: const Text('HINDI'),
                     ),
                   ]),
@@ -78,7 +79,7 @@ class chooseLanguage extends State<selectLanguage> {
                         foregroundColor: Colors.white,
                         textStyle: const TextStyle(fontSize: 18),
                       ),
-                      onPressed: () {},
+                      onPressed: () {languageSelected('French');},
                       child: const Text('FRENCH'),
                     ),
                   ]),
@@ -98,7 +99,7 @@ class chooseLanguage extends State<selectLanguage> {
                         foregroundColor: Colors.white,
                         textStyle: const TextStyle(fontSize: 18),
                       ),
-                      onPressed: () {},
+                      onPressed: () {languageSelected('urdu');},
                       child: const Text('URDU'),
                     ),
                   ]),
@@ -118,7 +119,7 @@ class chooseLanguage extends State<selectLanguage> {
                         foregroundColor: Colors.white,
                         textStyle: const TextStyle(fontSize: 18),
                       ),
-                      onPressed: () {},
+                      onPressed: () {languageSelected('English');},
                       child: const Text('ENGLISH'),
                     ),
                   ]),
@@ -133,5 +134,13 @@ class chooseLanguage extends State<selectLanguage> {
   State<StatefulWidget> createState() {
     // TODO: implement createState
     throw UnimplementedError();
+  }
+  void languageSelected(String language) {
+    setState(() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => FluencyLevel()),
+      );
+    });
   }
 }
