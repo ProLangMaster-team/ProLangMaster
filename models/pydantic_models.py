@@ -17,12 +17,25 @@ class PydanticObjectId(BsonObjectId):
         return str(v)
 
 
+class JWTToken(BaseModel):
+    token: StrictStr
+
+
 class Email(BaseModel):
     email: EmailStr
 
 
+class DeleteUser(JWTToken, Email):
+    pass
+
+
 class LoginCreds(Email):
     password: StrictStr
+
+
+class ResetPassword(LoginCreds):
+    confirm_password: StrictStr
+    tmp_token: StrictStr
 
 
 class SignupCreds(LoginCreds):
