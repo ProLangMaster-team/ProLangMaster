@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:pro_lang_master/Login/login.dart';
+<<<<<<< Updated upstream
 
 import 'package:pro_lang_master/Login/selectLanguage.dart';
 import 'package:pro_lang_master/Login/Fluencylevel.dart';
 import 'package:pro_lang_master/Login/Goalsetup.dart';
 import 'package:pro_lang_master/Login/question.dart';
 import 'package:pro_lang_master/Login/forgotPassword.dart';
+=======
+import 'package:pro_lang_master/Login/selectLanguage.dart';
+>>>>>>> Stashed changes
 import 'package:pro_lang_master/Login/verification.dart';
+import 'package:pro_lang_master/Login/Fluencylevel.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +27,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+<<<<<<< Updated upstream
       home: const ForgotPassword(),
+=======
+      home: const FluencyLevel(),
+>>>>>>> Stashed changes
     );
   }
 }
@@ -46,7 +55,11 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+<<<<<<< Updated upstream
           children: <Widget>[ForgotPassword()],
+=======
+          children: <Widget>[FluencyLevel()],
+>>>>>>> Stashed changes
         ),
       ),
       floatingActionButton: FloatingActionButton(
