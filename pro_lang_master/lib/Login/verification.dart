@@ -13,6 +13,12 @@ class verification extends State<Verification> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        backgroundColor: Color(0XFF826FA9),
+        leading: BackButton(
+          color: Colors.white,
+        ),
+      ),
       body: Center(
         child: Container(
           color: const Color(0XFF826FA9),
