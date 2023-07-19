@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:pro_lang_master/Login/createpassword.dart';
 import 'package:pro_lang_master/Login/login.dart';
 import 'package:pro_lang_master/Login/verification.dart';
 
@@ -155,15 +156,14 @@ class forgotpassword extends State<ForgotPassword> {
   void forgotPassword() async {
     print(emailController.text);
     var url =
-        "https://e2c7-137-207-232-218.ngrok-free.app/reset-password/exist/?email=" +
-            emailController.text;
+        "https://basically-polished-dassie.ngrok-free.app/user/reset-password/exist?email=${emailController.text}";
     // final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
     Uri uri = Uri.parse(url);
     print(uri);
     var response = await http.get(uri);
     print(response.statusCode);
     print(json.decode(response.body));
-    if (json.decode(response.body)['status'] == 'error') {
+    if (json.decode(response.body)['status'] == 'error' || !json.decode(response.body)["data"]["exist"]) {
       print('Error');
       setState(() {
         errorCase = true;
@@ -173,7 +173,7 @@ class forgotpassword extends State<ForgotPassword> {
         errorCase = false;
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Verification()),
+          MaterialPageRoute(builder: (context) => NewPassword(token: json.decode(response.body)['data']['tmp_token'])),
         );
       });
     }

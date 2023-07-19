@@ -93,7 +93,7 @@ class verification extends State<Verification> {
                   setState(() {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => NewPassword()),
+                      MaterialPageRoute(builder: (context) => NewPassword(token: "")),
                     );
                   });
                 },

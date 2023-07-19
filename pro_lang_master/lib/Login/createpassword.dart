@@ -5,13 +5,16 @@ import 'package:http/http.dart' as http;
 import 'package:pro_lang_master/Login/login.dart';
 
 class NewPassword extends StatefulWidget {
-  const NewPassword({Key? key}) : super(key: key);
-
+  NewPassword({Key? key, required this.token}) : super(key: key);
+  final String token;
   @override
-  newPassword createState() => newPassword();
+  newPassword createState() => newPassword(token);
 }
 
 class newPassword extends State<NewPassword> {
+
+  newPassword(this.token);
+  final String token;
   final TextEditingController passwordController = new TextEditingController();
   var errorCase = false;
   @override
@@ -106,8 +109,8 @@ class newPassword extends State<NewPassword> {
             Container(
               width: 150,
               margin: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-              child: const TextButton(
-                onPressed: null,
+              child: TextButton(
+                onPressed: validatePassword,
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStatePropertyAll<Color>(Color(0XFF48386A)),
@@ -135,13 +138,13 @@ class newPassword extends State<NewPassword> {
       "email": "sample1@sample1.com",
       "password": "abc123",
       "confirm_password": "abc123",
-      "tmp_token": "123"
+      "tmp_token": token,
     };
+    print(token);
+    print(requestBody);
     final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
-    // var response = await http.get(Uri.parse('https://6e36-184-144-65-222.ngrok-free.app/user/login'));
     Uri uri = Uri.parse(
-        "https://6e36-184-144-65-222.ngrok-free.app/user/reset-password");
-    // uri.replace(queryParameters: requestBody);
+        "https://basically-polished-dassie.ngrok-free.app/user/reset-password");
     print(uri);
     var response =
         await http.put(uri, headers: headers, body: json.encode(requestBody));
