@@ -39,8 +39,8 @@ async def signup_user(credentials: SignupCreds):
 
 
 @router.get("/reset-password/exist")
-async def user_exist(credentials: Email):
-    tmp = users_db.find_one({"email": credentials.email})
+async def user_exist(email: str):
+    tmp = users_db.find_one({"email": email})
     if tmp:
         tmp_tokens.append(str(uuid4()))
         return {'status': 'ok', 'message': 'success', "data": {"exist": True, "tmp_token": tmp_tokens[-1]}}
