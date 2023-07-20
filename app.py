@@ -5,7 +5,7 @@ from routers import users, courses
 
 app = FastAPI()
 app.include_router(users.router, prefix="/user")
-app.include_router(courses.router, prefix="/courses")
+app.include_router(courses.router, prefix="/course")
 
 
 @app.get("/")

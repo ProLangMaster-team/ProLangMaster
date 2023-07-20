@@ -17,12 +17,25 @@ class PydanticObjectId(BsonObjectId):
         return str(v)
 
 
+class JWTToken(BaseModel):
+    token: StrictStr
+
+
 class Email(BaseModel):
     email: EmailStr
 
 
+class DeleteUser(JWTToken, Email):
+    pass
+
+
 class LoginCreds(Email):
     password: StrictStr
+
+
+class ResetPassword(LoginCreds):
+    confirm_password: StrictStr
+    tmp_token: StrictStr
 
 
 class SignupCreds(LoginCreds):
@@ -31,6 +44,13 @@ class SignupCreds(LoginCreds):
 
 
 class CourseDetails(BaseModel):
+    course_name: StrictStr
+    course_description: StrictStr
+    created_date: datetime
+    course_id: PydanticObjectId = Field(alias="_id")
+
+
+class CourseFlashcard(BaseModel):
     course_name: StrictStr
     course_description: StrictStr
     created_date: datetime
