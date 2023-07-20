@@ -15,3 +15,14 @@ async def list_courses(data: JWTToken):
         courses = [CourseDetails.parse_obj(obj).dict(by_alias=False) for obj in courses_db.find({})]
         return {'status': 'ok', 'message': 'success', "data": courses}
     return {'status': 'error', 'message': 'No courses available for user'}
+
+
+@router.get("/flashcards")
+async def list_courses(data: JWTToken):
+    if not verify_jwt(data.token):
+        return {"status": "error", "message": "unauthenticated user"}
+
+    if courses_db.count_documents({}) > 0:
+        courses = [CourseDetails.parse_obj(obj).dict(by_alias=False) for obj in courses_db.find({})]
+        return {'status': 'ok', 'message': 'success', "data": courses}
+    return {'status': 'error', 'message': 'No courses available for user'}
