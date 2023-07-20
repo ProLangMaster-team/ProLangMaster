@@ -48,3 +48,10 @@ class CourseDetails(BaseModel):
     course_description: StrictStr
     created_date: datetime
     course_id: PydanticObjectId = Field(alias="_id")
+
+
+class CourseFlashcard(BaseModel):
+    course_name: StrictStr
+    course_description: StrictStr
+    created_date: datetime
+    course_id: PydanticObjectId = Field(alias="_id")
