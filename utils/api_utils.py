@@ -22,4 +22,3 @@ def verify_jwt(token: str):
         return True
     except jwt.DecodeError:
         return False
-

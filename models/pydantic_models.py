@@ -25,7 +25,11 @@ class Email(BaseModel):
     email: EmailStr
 
 
-class DeleteUser(JWTToken, Email):
+class UserDetails(JWTToken, Email):
+    pass
+
+
+class DeleteUser(UserDetails):
     pass
 
 

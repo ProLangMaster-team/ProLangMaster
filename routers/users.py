@@ -2,7 +2,7 @@ import datetime
 from uuid import uuid4
 from fastapi import APIRouter
 
-from models.pydantic_models import LoginCreds, SignupCreds, Email, DeleteUser, ResetPassword
+from models.pydantic_models import LoginCreds, SignupCreds, Email, DeleteUser, ResetPassword, UserDetails
 from utils.api_utils import hash_password, create_jwt, verify_jwt
 from utils.database import users_db, pymongo_exceptions
 
@@ -71,3 +71,14 @@ async def remove_user(user: DeleteUser):
     else:
         users_db.delete_one({"email": user.email})
     return {'status': 'ok', 'message': 'success'}
+
+
+@router.get("/details")
+async def user_details(data: UserDetails):
+    if not verify_jwt(data.token):
+        return {"status": "error", "message": "unauthenticated user"}
+    tmp = users_db.find_one({"email": data.email})
+    if tmp:
+        data = {"name": tmp["name"], "email": tmp["email"], "created_date": tmp["created_date"]}
+        return {'status': 'ok', 'message': 'success', "data": data}
+    return {'status': 'error', 'message': 'user not found'}
