@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pro_lang_master/Login/forgotPassword.dart';
-import 'package:pro_lang_master/Login/login.dart';
-import 'package:pro_lang_master/Login/verification.dart';
+import 'package:pro_lang_master/Login/Userdetails.dart';
 import 'package:pro_lang_master/Login/login.dart';
 import 'package:pro_lang_master/Login/selectLanguage.dart';
 import 'package:pro_lang_master/Login/verification.dart';
@@ -15,7 +13,7 @@ import 'package:pro_lang_master/Login/verification.dart';
 import 'package:pro_lang_master/Login/login.dart';
 import 'package:pro_lang_master/HomePage/selectLanguage.dart';
 import 'package:pro_lang_master/Login/verification.dart';
-import 'package:pro_lang_master/HomePage/Fluencylevel.dart';
+import 'package:pro_lang_master/Login/createpassword.dart';
 
 void main() {
   runApp(const MyApp());

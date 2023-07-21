@@ -5,6 +5,8 @@ import 'dart:ffi';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:pro_lang_master/Login/createpassword.dart';
+import 'package:pro_lang_master/Login/login.dart';
 import 'package:pro_lang_master/Login/verification.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -21,6 +23,12 @@ class forgotpassword extends State<ForgotPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        backgroundColor: Color(0XFF826FA9),
+        leading: BackButton(
+          color: Colors.white,
+        ),
+      ),
       body: Center(
         child: Container(
           color: const Color(0XFF826FA9),
@@ -109,14 +117,21 @@ class forgotpassword extends State<ForgotPassword> {
             Container(
               width: 150,
               padding: const EdgeInsetsDirectional.all(10),
-              child: const TextButton(
+              child: TextButton(
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStatePropertyAll<Color>(Color(0XFF48386A)),
                   foregroundColor:
                       MaterialStatePropertyAll<Color>(Colors.white),
                 ),
-                onPressed: null,
+                onPressed: () {
+                  setState(() {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                    );
+                  });
+                },
                 child: Text("Sign in", style: TextStyle(fontSize: 18)),
               ),
             ),
@@ -149,17 +164,15 @@ class forgotpassword extends State<ForgotPassword> {
 
   void forgotPassword() async {
     print(emailController.text);
-    var requestBody = {
-      "email": emailController.text,
-    };
-    final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
-    Uri uri = Uri.https("https://e2c7-137-207-232-218.ngrok-free.app",
-        "/reset-password/exist", requestBody);
+    var url =
+        "https://basically-polished-dassie.ngrok-free.app/user/reset-password/exist?email=${emailController.text}";
+    // final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
+    Uri uri = Uri.parse(url);
     print(uri);
     var response = await http.get(uri);
     print(response.statusCode);
     print(json.decode(response.body));
-    if (json.decode(response.body)['status'] == 'error') {
+    if (json.decode(response.body)['status'] == 'error' || !json.decode(response.body)["data"]["exist"]) {
       print('Error');
       setState(() {
         errorCase = true;
@@ -169,7 +182,7 @@ class forgotpassword extends State<ForgotPassword> {
         errorCase = false;
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Verification()),
+          MaterialPageRoute(builder: (context) => NewPassword(token: json.decode(response.body)['data']['tmp_token'])),
         );
       });
     }
