@@ -1,7 +1,7 @@
 import bson
 from fastapi import APIRouter
 
-from models.pydantic_models import CourseDetails, JWTToken, GetFlashcard
+from models.pydantic_models import CourseDetails, JWTToken, AuthCourseID
 from utils.api_utils import verify_jwt
 from utils.database import users_db, courses_db, pymongo_exceptions
 
@@ -19,7 +19,7 @@ async def list_courses(data: JWTToken):
 
 
 @router.get("/flashcards")
-async def get_flashcards(data: GetFlashcard):
+async def get_flashcards(data: AuthCourseID):
     if not verify_jwt(data.token):
         return {"status": "error", "message": "unauthenticated user"}
 

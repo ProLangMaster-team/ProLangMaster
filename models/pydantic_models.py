@@ -54,5 +54,10 @@ class CourseDetails(BaseModel):
     course_id: PydanticObjectId = Field(alias="_id")
 
 
-class GetFlashcard(JWTToken):
+class AuthCourseID(JWTToken):
     course_id: StrictStr
+
+
+class EnrollCourse(Email, AuthCourseID):
+    fluency: int
+    frequency: int
