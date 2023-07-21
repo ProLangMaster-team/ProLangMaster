@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:pro_lang_master/Login/verification.dart';
 import 'package:flip_card/flip_card.dart';
 
 class FlashCard extends StatefulWidget {
@@ -63,7 +62,7 @@ class flashCard extends State<FlashCard> {
                           ],
                         ),
                       ),
-                      back: Card(
+                      back: const Card(
                           elevation: 8,
                           child: Center(
                             child: Text("Backside"),

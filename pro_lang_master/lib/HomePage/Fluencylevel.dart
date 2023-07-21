@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:pro_lang_master/Login/flashcardQuestion.dart';
 
 class FluencyLevel extends StatefulWidget {
   const FluencyLevel({Key? key}) : super(key: key);
@@ -11,7 +12,9 @@ class FluencyLevel extends StatefulWidget {
 }
 
 class fluencyLevel extends State<FluencyLevel> {
-
+  var noProficiency = false;
+  var elementary = false;
+  var professional = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,12 +55,18 @@ class fluencyLevel extends State<FluencyLevel> {
                 // border: Border.all(width: 1.0),
                 color: Color(0xB2FFFFFF),
               ),
-              child: const Column(children: <Widget>[
+              child: Column(children: <Widget>[
                 Row(
                   children: [
-                    Checkbox(value: false, onChanged: null),
-                    SizedBox(width: 80),
-                    Text(
+                    Checkbox(value: noProficiency, onChanged: (value) {
+                      setState(() {
+                        noProficiency = value!;
+                        elementary = false;
+                        professional = false;
+                      });
+                    }),
+                    const SizedBox(width: 80),
+                    const Text(
                       "No Proficiency",
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -67,7 +76,7 @@ class fluencyLevel extends State<FluencyLevel> {
                     ),
                   ],
                 ),
-                Row(
+                const Row(
                   children: [
                     Checkbox(value: false, onChanged: null),
                     SizedBox(width: 53),
@@ -81,7 +90,7 @@ class fluencyLevel extends State<FluencyLevel> {
                     ),
                   ],
                 ),
-                Row(
+                const Row(
                   children: [
                     Checkbox(value: false, onChanged: null),
                     SizedBox(width: 49),
@@ -94,9 +103,15 @@ class fluencyLevel extends State<FluencyLevel> {
                       ),
                     ),
                   ],
-                )
+                ),
               ]),
             ),
+            TextButton(onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const FlashCard()),
+              );
+            }, child: Text("Next")),
           ]),
         ),
       ),
