@@ -36,14 +36,14 @@ class loginScreen extends State<LoginScreen> {
               child: Image.asset('Assets/mercury.png'),
             ),
             errorCase
-                ? const Text(
-              'Username or password incorrect',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.red,
-              ),
-            )
+                ? Text(
+                    'Username or password incorrect',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                    ),
+                  )
                 : Container(),
             Container(
               width: 300,
@@ -134,9 +134,9 @@ class loginScreen extends State<LoginScreen> {
                       onPressed: login,
                       style: ButtonStyle(
                         backgroundColor:
-                        MaterialStatePropertyAll<Color>(Color(0XFF48386A)),
+                            MaterialStatePropertyAll<Color>(Color(0XFF48386A)),
                         foregroundColor:
-                        MaterialStatePropertyAll<Color>(Colors.white),
+                            MaterialStatePropertyAll<Color>(Colors.white),
                       ),
                       child: Text("Login", style: TextStyle(fontSize: 25)),
                     ),
@@ -147,9 +147,9 @@ class loginScreen extends State<LoginScreen> {
                       onPressed: null,
                       style: ButtonStyle(
                         backgroundColor:
-                        MaterialStatePropertyAll<Color>(Color(0XFF48386A)),
+                            MaterialStatePropertyAll<Color>(Color(0XFF48386A)),
                         foregroundColor:
-                        MaterialStatePropertyAll<Color>(Colors.white),
+                            MaterialStatePropertyAll<Color>(Colors.white),
                       ),
                       child: Text("Register", style: TextStyle(fontSize: 25)),
                     ),
@@ -172,7 +172,7 @@ class loginScreen extends State<LoginScreen> {
                 onPressed: null,
                 style: const ButtonStyle(
                   backgroundColor:
-                  MaterialStatePropertyAll<Color>(Colors.white),
+                      MaterialStatePropertyAll<Color>(Colors.white),
                 ),
                 child: Container(
                   width: 200,
@@ -181,7 +181,7 @@ class loginScreen extends State<LoginScreen> {
                       Image.asset('Assets/google_logo.png'),
                       Container(
                           margin:
-                          const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                              const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                           child: const Text("Login with google")),
                     ],
                   ),
@@ -225,7 +225,7 @@ class loginScreen extends State<LoginScreen> {
     final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
     Uri uri = Uri.parse("https://e2c7-137-207-232-218.ngrok-free.app/user/login");
     var response =
-    await http.post(uri, headers: headers, body: json.encode(requestBody));
+        await http.post(uri, headers: headers, body: json.encode(requestBody));
     print(response.statusCode);
     print(json.decode(response.body));
     if (json.decode(response.body)['status'] == 'error') {
