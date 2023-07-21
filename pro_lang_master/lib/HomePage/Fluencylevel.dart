@@ -11,13 +11,14 @@ class FluencyLevel extends StatefulWidget {
 }
 
 class fluencyLevel extends State<FluencyLevel> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: Color(0XFF826FA9),
-        leading: BackButton(
+        backgroundColor: const Color(0XFF826FA9),
+        leading: const BackButton(
           color: Colors.white,
         ),
       ),
@@ -46,17 +47,17 @@ class fluencyLevel extends State<FluencyLevel> {
             ),
             Container(
               margin: const EdgeInsetsDirectional.fromSTEB(42, 119, 42, 0),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(16)),
                 // border: Border.all(width: 1.0),
                 color: Color(0xB2FFFFFF),
               ),
-              child: Column(children: <Widget>[
+              child: const Column(children: <Widget>[
                 Row(
                   children: [
-                    const Checkbox(value: false, onChanged: null),
+                    Checkbox(value: false, onChanged: null),
                     SizedBox(width: 80),
-                    const Text(
+                    Text(
                       "No Proficiency",
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -68,9 +69,9 @@ class fluencyLevel extends State<FluencyLevel> {
                 ),
                 Row(
                   children: [
-                    const Checkbox(value: false, onChanged: null),
+                    Checkbox(value: false, onChanged: null),
                     SizedBox(width: 53),
-                    const Text(
+                    Text(
                       "Elementary Proficiency",
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -82,9 +83,9 @@ class fluencyLevel extends State<FluencyLevel> {
                 ),
                 Row(
                   children: [
-                    const Checkbox(value: false, onChanged: null),
+                    Checkbox(value: false, onChanged: null),
                     SizedBox(width: 49),
-                    const Text(
+                    Text(
                       "Professional Proficiency",
                       textAlign: TextAlign.center,
                       style: TextStyle(

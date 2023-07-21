@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  flip_card: ^0.7.0  
   email_validator: '^2.1.16'
 
 
@@ -69,7 +71,6 @@ flutter:
 
 
   # To add assets to your application, add an assets section, like this:
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

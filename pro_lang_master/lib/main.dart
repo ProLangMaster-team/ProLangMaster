@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:pro_lang_master/Login/Userdetails.dart';
 import 'package:pro_lang_master/Login/login.dart';
-
 import 'package:pro_lang_master/Login/selectLanguage.dart';
+import 'package:pro_lang_master/Login/verification.dart';
 import 'package:pro_lang_master/Login/Fluencylevel.dart';
-import 'package:pro_lang_master/Login/Goalsetup.dart';
-import 'package:pro_lang_master/Login/question.dart';
+import 'package:pro_lang_master/Login/UserDetails.dart';
+import 'package:pro_lang_master/Login/flashcardQuestion.dart';
+import 'package:pro_lang_master/Login/createpassword.dart';
 import 'package:pro_lang_master/Login/forgotPassword.dart';
+import 'package:pro_lang_master/Login/login.dart';
+import 'package:pro_lang_master/Login/verification.dart';
+import 'package:pro_lang_master/Login/login.dart';
+import 'package:pro_lang_master/HomePage/selectLanguage.dart';
 import 'package:pro_lang_master/Login/verification.dart';
 import 'package:pro_lang_master/Login/createpassword.dart';
 
@@ -24,7 +29,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const ForgotPassword(),
+      home: const LoginScreen(),
     );
   }
 }
@@ -48,7 +53,9 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[UserDetails()],
+          children: <Widget>[
+            LoginScreen()
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
