@@ -27,3 +27,14 @@ async def get_flashcards(data: AuthCourseID):
     if tmp:
         return {'status': 'ok', 'message': 'success', "data": tmp["quiz"]}
     return {'status': 'error', 'message': 'Course does not exist'}
+
+
+@router.put("/enroll")
+async def enroll_course(data: AuthCourseID):
+    if not verify_jwt(data.token):
+        return {"status": "error", "message": "unauthenticated user"}
+
+    tmp = courses_db.find_one({"_id": bson.ObjectId(data.course_id)})
+    if tmp:
+        return {'status': 'ok', 'message': 'success', "data": tmp["quiz"]}
+    return {'status': 'error', 'message': 'Course does not exist'}
