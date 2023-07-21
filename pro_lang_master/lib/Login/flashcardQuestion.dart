@@ -15,8 +15,9 @@ class FlashCard extends StatefulWidget {
 }
 
 class flashCard extends State<FlashCard> {
-  final TextEditingController emailController = new TextEditingController();
   var errorCase = false;
+  final List<String> options = ['option1', 'option2', 'option3', 'option4'];
+  String selectedOption = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,10 +42,27 @@ class flashCard extends State<FlashCard> {
                   height: 400,
                   child: FlipCard(
                       front: Card(
-                          elevation: 8,
-                          child: Center(
-                            child: Text("Flashcard"),
-                          )),
+                        elevation: 8,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Question"),
+                            SizedBox(height: 20),
+                            for (String option in options)
+                              ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    selectedOption = option;
+                                  });
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        Color.fromRGBO(255, 255, 255, 1)),
+                                child: Text(option),
+                              ),
+                          ],
+                        ),
+                      ),
                       back: Card(
                           elevation: 8,
                           child: Center(
