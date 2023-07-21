@@ -25,6 +25,5 @@ async def get_flashcards(data: GetFlashcard):
 
     tmp = courses_db.find_one({"_id": bson.ObjectId(data.course_id)})
     if tmp:
-        courses = [CourseDetails.parse_obj(obj).dict(by_alias=False) for obj in courses_db.find({})]
-        return {'status': 'ok', 'message': 'success', "data": courses}
+        return {'status': 'ok', 'message': 'success', "data": tmp["quiz"]}
     return {'status': 'error', 'message': 'Course does not exist'}
