@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  flip_card: ^0.7.0  
   email_validator: '^2.1.16'
 
 
