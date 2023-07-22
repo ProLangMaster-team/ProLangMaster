@@ -25,7 +25,11 @@ class Email(BaseModel):
     email: EmailStr
 
 
-class DeleteUser(JWTToken, Email):
+class UserDetails(JWTToken, Email):
+    pass
+
+
+class DeleteUser(UserDetails):
     pass
 
 
@@ -50,8 +54,10 @@ class CourseDetails(BaseModel):
     course_id: PydanticObjectId = Field(alias="_id")
 
 
-class CourseFlashcard(BaseModel):
-    course_name: StrictStr
-    course_description: StrictStr
-    created_date: datetime
-    course_id: PydanticObjectId = Field(alias="_id")
+class AuthCourseID(JWTToken):
+    course_id: StrictStr
+
+
+class EnrollCourse(Email, AuthCourseID):
+    fluency: int
+    frequency: int

@@ -1,9 +1,10 @@
 import datetime
 from uuid import uuid4
+
 from fastapi import APIRouter
 
-from models.pydantic_models import LoginCreds, SignupCreds, Email, DeleteUser, ResetPassword
-from utils.api_utils import hash_password, create_jwt, verify_jwt
+from models.pydantic_models import LoginCreds, SignupCreds, DeleteUser, ResetPassword, UserDetails
+from utils.api_utils import hash_password, create_jwt, authenticate
 from utils.database import users_db, pymongo_exceptions
 
 router = APIRouter()
@@ -12,12 +13,9 @@ tmp_tokens = []
 
 @router.post("/login")
 async def login_user(credentials: LoginCreds):
-    if credentials.email == 'admin@plm.com' and credentials.password == 'admin':
-        return {'status': 'ok', 'message': 'success'}
-
     user = users_db.find_one({"email": credentials.email, "pass": hash_password(credentials.password)})
-    jwt_token = create_jwt({"user_id": str(user["_id"])})
     if user:
+        jwt_token = create_jwt({"user_id": str(user["_id"])})
         return {'status': 'ok', "data": {"token": jwt_token}, 'message': 'success'}
     return {'status': 'error', 'message': 'Invalid login details'}
 
@@ -61,9 +59,8 @@ async def reset_password(credentials: ResetPassword):
 
 
 @router.delete("/remove")
+@authenticate
 async def remove_user(user: DeleteUser):
-    if not verify_jwt(user.token):
-        return {"status": "error", "message": "unauthenticated user"}
     tmp = users_db.find_one({"email": user.email})
 
     if not tmp:
@@ -71,3 +68,13 @@ async def remove_user(user: DeleteUser):
     else:
         users_db.delete_one({"email": user.email})
     return {'status': 'ok', 'message': 'success'}
+
+
+@router.get("/details")
+@authenticate
+async def user_details(data: UserDetails):
+    tmp = users_db.find_one({"email": data.email})
+    if tmp:
+        data = {"name": tmp["name"], "email": tmp["email"], "created_date": tmp["created_date"]}
+        return {'status': 'ok', 'message': 'success', "data": data}
+    return {'status': 'error', 'message': 'user not found'}

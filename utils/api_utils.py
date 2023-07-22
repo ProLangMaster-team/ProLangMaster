@@ -1,5 +1,7 @@
 import json
 import time
+import types
+from functools import wraps
 
 import jwt
 from hashlib import sha1
@@ -23,3 +25,20 @@ def verify_jwt(token: str):
     except jwt.DecodeError:
         return False
 
+
+def authenticate(func):
+    @wraps(func)
+    # kwargs should have all info in `data` key
+    async def wrapper(*args, **kwargs):
+        if type(kwargs["data"]) is dict:
+            flag = verify_jwt(kwargs["data"]["token"])
+        else:
+            flag = verify_jwt(kwargs["data"].token)
+        if not flag:
+            return {"status": "error", "message": "unauthenticated user"}
+        to_return = func(*args, **kwargs)
+        if isinstance(to_return, types.CoroutineType):
+            to_return = await to_return
+        return to_return
+
+    return wrapper
