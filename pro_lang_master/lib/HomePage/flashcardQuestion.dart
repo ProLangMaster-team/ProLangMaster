@@ -140,14 +140,17 @@ class flashCard extends State<FlashCard> {
   void getAPIData () async {
     final prefs = await SharedPreferences.getInstance();
     final token = await prefs.getString('token');
+    final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
     var url =
         "https://basically-polished-dassie.ngrok-free.app/course/flashcards";
     Uri uri = Uri.parse(url);
+    var requestBody = {
+      "course_id": "64b2e582ff47411cbf88db85",
+      "token": token,
+    };
+    print(requestBody);
     print(uri);
-    var response = await http.post(uri, body: {
-      'course_id': '64b2e582ff47411cbf88db85',
-      'token': token,
-    });
+    var response = await http.post(uri, headers: headers,body: json.encode(requestBody));
     print(json.decode(response.body));
   }
 
