@@ -166,7 +166,6 @@ class forgotpassword extends State<ForgotPassword> {
     print(emailController.text);
     var url =
         "https://basically-polished-dassie.ngrok-free.app/user/reset-password/exist?email=${emailController.text}";
-    // final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
     Uri uri = Uri.parse(url);
     print(uri);
     var response = await http.get(uri);

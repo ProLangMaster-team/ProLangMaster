@@ -4,7 +4,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pro_lang_master/HomePage/selectLanguage.dart';
+import 'package:pro_lang_master/Login/CommonComponents/loading.dart';
 import 'package:pro_lang_master/Login/forgotPassword.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -24,7 +26,8 @@ class loginScreen extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body:
+      Center(
         child: Container(
           color: const Color(0XFF826FA9),
           width: double.maxFinite,
@@ -36,7 +39,7 @@ class loginScreen extends State<LoginScreen> {
               child: Image.asset('Assets/mercury.png'),
             ),
             errorCase
-                ? Text(
+                ? const Text(
                     'Username or password incorrect',
                     style: TextStyle(
                       fontSize: 18,
@@ -235,6 +238,8 @@ class loginScreen extends State<LoginScreen> {
         errorCase = true;
       });
     } else {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', json.decode(response.body)['data']['token']);
       setState(() {
         errorCase = false;
         Navigator.push(
