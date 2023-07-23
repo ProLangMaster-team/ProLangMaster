@@ -52,7 +52,7 @@ async def reset_password(credentials: ResetPassword):
     tmp_tokens.remove(credentials.tmp_token)
     if credentials.password != credentials.confirm_password:
         return {"status": "error", "message": "Confirm password incorrect"}
-    tmp = users_db.update_one({"email": credentials.email}, {"pass": hash_password(credentials.password)})
+    tmp = users_db.update_one({"email": credentials.email}, {"$set": {"pass": hash_password(credentials.password)}})
     if not tmp.modified_count > 0:
         return {"status": "error", "message": "User record not found"}
     return {'status': 'ok', 'message': 'success'}
