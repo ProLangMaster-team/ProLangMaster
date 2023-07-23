@@ -1,29 +1,5 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-import 'package:pro_lang_master/Login/correct.dart';
-import 'package:pro_lang_master/Login/forgotPassword.dart';
 import 'package:pro_lang_master/Login/login.dart';
-import 'package:pro_lang_master/Login/signUp.dart';
-import 'package:pro_lang_master/Login/verification.dart';
-import 'package:pro_lang_master/Login/login.dart';
-import 'package:pro_lang_master/Login/selectLanguage.dart';
-import 'package:pro_lang_master/Login/verification.dart';
-import 'package:pro_lang_master/Login/Fluencylevel.dart';
-import 'package:pro_lang_master/Login/UserDetails.dart';
-import 'package:pro_lang_master/Login/flashcardQuestion.dart';
-import 'package:pro_lang_master/Login/loading.dart';
-import 'package:pro_lang_master/Login/createpassword.dart';
-import 'package:pro_lang_master/Login/forgotPassword.dart';
-import 'package:pro_lang_master/Login/login.dart';
-import 'package:pro_lang_master/Login/verification.dart';
-import 'package:pro_lang_master/Login/login.dart';
-import 'package:pro_lang_master/HomePage/selectLanguage.dart';
-import 'package:pro_lang_master/Login/verification.dart';
-import 'package:pro_lang_master/HomePage/Fluencylevel.dart';
-import 'package:pro_lang_master/Login/incorrect.dart';
-=======
-import 'package:pro_lang_master/Login/login.dart';
->>>>>>> 4caefe5bc1d3b440bd50544459d52384bc9a0dc9
 
 void main() {
   runApp(const MyApp());

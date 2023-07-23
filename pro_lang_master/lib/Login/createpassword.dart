@@ -1,17 +1,32 @@
+import 'dart:io';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:pro_lang_master/Login/login.dart';
 
 class NewPassword extends StatefulWidget {
-  const NewPassword({Key? key}) : super(key: key);
-
+  NewPassword({Key? key, required this.token}) : super(key: key);
+  final String token;
   @override
-  newPassword createState() => newPassword();
+  newPassword createState() => newPassword(token);
 }
 
 class newPassword extends State<NewPassword> {
+
+  newPassword(this.token);
+  final String token;
+  final TextEditingController passwordController = new TextEditingController();
+  var errorCase = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        backgroundColor: Color(0XFF826FA9),
+        leading: BackButton(
+          color: Colors.white,
+        ),
+      ),
       body: Center(
         child: Container(
           color: const Color(0XFF826FA9),
@@ -49,7 +64,10 @@ class newPassword extends State<NewPassword> {
             Container(
               width: 300,
               height: 40,
-              child: const TextField(
+              child: TextFormField(
+                  controller: passwordController,
+                  autovalidateMode: AutovalidateMode.always,
+                  // validator: validatePassword,
                   decoration: InputDecoration(
                       filled: true,
                       border: OutlineInputBorder(
@@ -74,7 +92,10 @@ class newPassword extends State<NewPassword> {
             Container(
               width: 300,
               height: 40,
-              child: const TextField(
+              child: TextFormField(
+                  controller: passwordController,
+                  autovalidateMode: AutovalidateMode.always,
+                  // validator: validatePassword,
                   decoration: InputDecoration(
                       filled: true,
                       border: OutlineInputBorder(
@@ -88,8 +109,8 @@ class newPassword extends State<NewPassword> {
             Container(
               width: 150,
               margin: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-              child: const TextButton(
-                onPressed: null,
+              child: TextButton(
+                onPressed: validatePassword,
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStatePropertyAll<Color>(Color(0XFF48386A)),
@@ -109,5 +130,39 @@ class newPassword extends State<NewPassword> {
   State<StatefulWidget> createState() {
     // TODO: implement createState
     throw UnimplementedError();
+  }
+
+  void validatePassword() async {
+    print(passwordController.text);
+    var requestBody = {
+      "email": "sample1@sample1.com",
+      "password": "abc123",
+      "confirm_password": "abc123",
+      "tmp_token": token,
+    };
+    print(token);
+    print(requestBody);
+    final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
+    Uri uri = Uri.parse(
+        "https://basically-polished-dassie.ngrok-free.app/user/reset-password");
+    print(uri);
+    var response =
+        await http.put(uri, headers: headers, body: json.encode(requestBody));
+    print(response.statusCode);
+    print(json.decode(response.body));
+    if (json.decode(response.body)['status'] == 'error') {
+      print('Error');
+      setState(() {
+        errorCase = true;
+      });
+    } else {
+      // TODO: logic to redirect to next screen
+      setState(() {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+        );
+      });
+    }
   }
 }
