@@ -66,7 +66,8 @@ class flashCard extends State<FlashCard> {
                                   setState(() {
                                     selectedOption = option.value;
                                     option.isSelected = !(option.isSelected);
-
+                                    isCorrectOptionSelected = selectedOption == questions.first.correctAnswer;
+                                    questionFlashCard.currentState?.toggleCard();
                                   });
                                 },
                                 style: ElevatedButton.styleFrom(
@@ -85,7 +86,7 @@ class flashCard extends State<FlashCard> {
                       back: Card(
                           elevation: 8,
                           child: Center(
-                            child: isCorrectOptionSelected ? const Correct(): const Incorrect(),
+                            child: isCorrectOptionSelected ? const Correct(): InCorrect(correctAnswer: questions.first.correctAnswer),
                           ))),
                 ),
               ],
@@ -103,38 +104,21 @@ class flashCard extends State<FlashCard> {
                 onPressed: () {
                   setState(() {
                     setState(() {
-                      questionFlashCard.currentState?.toggleCard();
+                      setState(() {
+                        if (questions.length > 1) {
+                          questionFlashCard.currentState?.toggleCard();
+                          questions.removeAt(0);
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => selectLanguage()),
+                          );
+                        }
+                      });
                     });
                   });
                 },
                 child: const Text("Next", style: TextStyle(fontSize: 18)),
-              ),
-            ),
-            Container(
-              width: 150,
-              margin: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
-              child: TextButton(
-                style: const ButtonStyle(
-                  backgroundColor:
-                  MaterialStatePropertyAll<Color>(Color(0XFF48386A)),
-                  foregroundColor:
-                  MaterialStatePropertyAll<Color>(Colors.white),
-                ),
-                onPressed: () {
-                  setState(() {
-                    setState(() {
-                      if (questions.length > 1) {
-                        questions.removeAt(0);
-                      } else {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => selectLanguage()),
-                        );
-                      }
-                    });
-                  });
-                },
-                child: const Text("Next Question", style: TextStyle(fontSize: 18)),
               ),
             ),
           ]),
