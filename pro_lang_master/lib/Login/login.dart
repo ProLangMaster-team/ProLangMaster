@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:pro_lang_master/HomePage/selectLanguage.dart';
 import 'package:pro_lang_master/Login/CommonComponents/loading.dart';
 import 'package:pro_lang_master/Login/forgotPassword.dart';
+import 'package:pro_lang_master/Login/signUp.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -147,8 +148,13 @@ class loginScreen extends State<LoginScreen> {
                   ),
                   Container(
                     padding: const EdgeInsetsDirectional.all(10),
-                    child: const TextButton(
-                      onPressed: null,
+                    child: TextButton(
+                      onPressed: (() {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignUp()),
+                        );
+                      }),
                       style: ButtonStyle(
                         backgroundColor:
                             MaterialStatePropertyAll<Color>(Color(0XFF48386A)),

@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const LoginScreen(),
+      home: const InCorrect(),
     );
   }
 }
@@ -39,9 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            LoginScreen()
-          ],
+          children: <Widget>[InCorrect()],
         ),
       ),
       floatingActionButton: FloatingActionButton(
