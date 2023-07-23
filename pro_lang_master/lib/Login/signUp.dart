@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:email_validator/email_validator.dart';
+import 'package:pro_lang_master/Login/login.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -15,6 +16,8 @@ class SignUp extends StatefulWidget {
 class signup extends State<SignUp> {
   // Text field controller
   TextEditingController emailController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   var passwordHidden = true;
@@ -67,9 +70,7 @@ class signup extends State<SignUp> {
               margin: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 0),
               child: TextFormField(
                   style: TextStyle(color: Colors.white),
-                  controller: emailController,
-                  autovalidateMode: AutovalidateMode.always,
-                  validator: validateEmail,
+                  controller: nameController,
                   decoration: const InputDecoration(
                     hintText: 'Name',
                     hintStyle: TextStyle(color: Colors.white),
@@ -96,9 +97,7 @@ class signup extends State<SignUp> {
               margin: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 0),
               child: TextFormField(
                   style: TextStyle(color: Colors.white),
-                  controller: emailController,
-                  autovalidateMode: AutovalidateMode.always,
-                  // validator: validatePassword,
+                  controller: passwordController,
                   decoration: const InputDecoration(
                       hintText: 'Password',
                       hintStyle: TextStyle(color: Colors.white),
@@ -114,6 +113,7 @@ class signup extends State<SignUp> {
             Container(
               margin: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 0),
               child: TextFormField(
+                  controller: confirmPasswordController,
                   style: TextStyle(color: Colors.white),
                   decoration: const InputDecoration(
                       hintText: 'Confirm Password',
@@ -214,13 +214,15 @@ class signup extends State<SignUp> {
     print(emailController.text);
     print(passwordController.text);
     var requestBody = {
-      "user_name": emailController.text,
+      "email": emailController.text,
       "password": passwordController.text,
+      "full_name": nameController.text,
+      "confirm_password": confirmPasswordController.text
     };
     final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
     // var response = await http.get(Uri.parse('https://6e36-184-144-65-222.ngrok-free.app/user/login'));
     Uri uri =
-        Uri.parse("https://6e36-184-144-65-222.ngrok-free.app/user/sign-up");
+        Uri.parse("https://basically-polished-dassie.ngrok-free.app/user/sign-up");
     // uri.replace(queryParameters: requestBody);
     print(uri);
     var response =
@@ -236,6 +238,10 @@ class signup extends State<SignUp> {
       // TODO: logic to redirect to next screen
       setState(() {
         errorCase = false;
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+        );
       });
     }
   }
