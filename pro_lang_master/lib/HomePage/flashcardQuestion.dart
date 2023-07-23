@@ -6,9 +6,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:pro_lang_master/HomePage/question.dart';
+import 'package:pro_lang_master/HomePage/selectLanguage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Login/CommonComponents/loading.dart';
+import 'Correct.dart';
+import 'Incorrect.dart';
 
 class FlashCard extends StatefulWidget {
   const FlashCard({Key? key}) : super(key: key);
@@ -21,8 +24,10 @@ class flashCard extends State<FlashCard> {
   var errorCase = false;
   var questionIndex = 0;
   var isPageLoading = true;
+  var isCorrectOptionSelected = false;
   GlobalKey<FlipCardState> questionFlashCard = GlobalKey<FlipCardState>();
-  final options = [{"value": 'option1', "selected": false }, {"value": 'option1', "selected": false },{"value": 'option1', "selected": false },{"value": 'option1', "selected": false }];
+  List<Questions> questions = [];
+  final options = [{"value": 'option1', "selected": false}, {"value": 'option1', "selected": false },{"value": 'option1', "selected": false },{"value": 'option1', "selected": false }];
   String selectedOption = '';
   @override
   Widget build(BuildContext context) {
@@ -54,22 +59,22 @@ class flashCard extends State<FlashCard> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text("Question"),
+                            Text(questions.first.question),
                             const SizedBox(height: 20),
-                            for (var option in options)
+                            for (var option in questions.first.options)
                               ElevatedButton(
                                 onPressed: () {
                                   setState(() {
-                                    selectedOption = option['value'] as String;
-                                    option['selected'] = !(option['selected'] as bool);
+                                    selectedOption = option.value;
+                                    option.isSelected = !(option.isSelected);
                                   });
                                 },
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: option["selected"] == false ?
+                                    backgroundColor: option.isSelected == false ?
                                         const Color.fromRGBO(255, 255, 255, 1) :
                                         const Color.fromRGBO(109, 72, 188, 1)),
-                                child: Text(option['value'] as String, style: TextStyle(
-                                  color: option["selected"] == false ?
+                                child: Text(option.value, style: TextStyle(
+                                  color: option.isSelected == false ?
                                   const Color.fromRGBO(0, 0, 0, 1) :
                                   const Color.fromRGBO(255, 255, 255, 1)),
                                 ),
@@ -77,10 +82,10 @@ class flashCard extends State<FlashCard> {
                           ],
                         ),
                       ),
-                      back: const Card(
+                      back: Card(
                           elevation: 8,
                           child: Center(
-                            child: Text("Backside"),
+                            child: isCorrectOptionSelected ? const Correct(): const Incorrect(),
                           ))),
                 ),
               ],
@@ -89,7 +94,7 @@ class flashCard extends State<FlashCard> {
               width: 150,
               margin: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
               child: TextButton(
-                style: ButtonStyle(
+                style: const ButtonStyle(
                   backgroundColor:
                       MaterialStatePropertyAll<Color>(Color(0XFF48386A)),
                   foregroundColor:
@@ -102,14 +107,14 @@ class flashCard extends State<FlashCard> {
                     });
                   });
                 },
-                child: Text("Next", style: TextStyle(fontSize: 18)),
+                child: const Text("Next", style: TextStyle(fontSize: 18)),
               ),
             ),
             Container(
               width: 150,
               margin: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
               child: TextButton(
-                style: ButtonStyle(
+                style: const ButtonStyle(
                   backgroundColor:
                   MaterialStatePropertyAll<Color>(Color(0XFF48386A)),
                   foregroundColor:
@@ -118,11 +123,18 @@ class flashCard extends State<FlashCard> {
                 onPressed: () {
                   setState(() {
                     setState(() {
-                      questionIndex += 1;
+                      if (questions.length > 1) {
+                        questions.removeAt(0);
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => selectLanguage()),
+                        );
+                      }
                     });
                   });
                 },
-                child: Text("Next Question", style: TextStyle(fontSize: 18)),
+                child: const Text("Next Question", style: TextStyle(fontSize: 18)),
               ),
             ),
           ]),
@@ -148,10 +160,24 @@ class flashCard extends State<FlashCard> {
       "course_id": "64b2e582ff47411cbf88db85",
       "token": token,
     };
-    print(requestBody);
-    print(uri);
     var response = await http.post(uri, headers: headers,body: json.encode(requestBody));
-    print(json.decode(response.body));
+    var res = json.decode(utf8.decode(response.bodyBytes))['data'];
+    print(res);
+    setState(() {
+      isPageLoading = false;
+      for(var index in res){
+        print(index);
+        List<Options> options = [];
+        for (var option in index["options"]) {
+          options.add(
+            Options(option, false, true)
+          );
+        }
+        questions.add(
+          Questions(index["question"], "mcq", options)
+        );
+      }
+    });
   }
 
   @override
@@ -159,4 +185,17 @@ class flashCard extends State<FlashCard> {
     // TODO: implement createState
     throw UnimplementedError();
   }
+}
+
+class Questions {
+  String question;
+  String type;
+  List<Options> options;
+  Questions(this.question, this.type, this.options);
+}
+
+class Options {
+  String value;
+  bool isSelected, isCorrect;
+  Options(this.value, this.isSelected, this.isCorrect);
 }

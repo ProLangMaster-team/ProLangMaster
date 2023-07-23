@@ -7,6 +7,7 @@ import 'package:pro_lang_master/HomePage/selectLanguage.dart';
 import 'package:pro_lang_master/Login/CommonComponents/loading.dart';
 import 'package:pro_lang_master/Login/forgotPassword.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -135,13 +136,13 @@ class loginScreen extends State<LoginScreen> {
                     padding: const EdgeInsetsDirectional.all(10),
                     child: TextButton(
                       onPressed: login,
-                      style: ButtonStyle(
+                      style: const ButtonStyle(
                         backgroundColor:
                             MaterialStatePropertyAll<Color>(Color(0XFF48386A)),
                         foregroundColor:
                             MaterialStatePropertyAll<Color>(Colors.white),
                       ),
-                      child: Text("Login", style: TextStyle(fontSize: 25)),
+                      child: const Text("Login", style: TextStyle(fontSize: 25)),
                     ),
                   ),
                   Container(
