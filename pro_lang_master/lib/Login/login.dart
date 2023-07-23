@@ -4,7 +4,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pro_lang_master/HomePage/selectLanguage.dart';
+import 'package:pro_lang_master/Login/CommonComponents/loading.dart';
 import 'package:pro_lang_master/Login/forgotPassword.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -20,11 +23,12 @@ class loginScreen extends State<LoginScreen> {
 
   var passwordHidden = true;
   var errorCase = false;
-
+  var selectedValue = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body:
+      Center(
         child: Container(
           color: const Color(0XFF826FA9),
           width: double.maxFinite,
@@ -36,7 +40,7 @@ class loginScreen extends State<LoginScreen> {
               child: Image.asset('Assets/mercury.png'),
             ),
             errorCase
-                ? Text(
+                ? const Text(
                     'Username or password incorrect',
                     style: TextStyle(
                       fontSize: 18,
@@ -132,13 +136,13 @@ class loginScreen extends State<LoginScreen> {
                     padding: const EdgeInsetsDirectional.all(10),
                     child: TextButton(
                       onPressed: login,
-                      style: ButtonStyle(
+                      style: const ButtonStyle(
                         backgroundColor:
                             MaterialStatePropertyAll<Color>(Color(0XFF48386A)),
                         foregroundColor:
                             MaterialStatePropertyAll<Color>(Colors.white),
                       ),
-                      child: Text("Login", style: TextStyle(fontSize: 25)),
+                      child: const Text("Login", style: TextStyle(fontSize: 25)),
                     ),
                   ),
                   Container(
@@ -223,9 +227,7 @@ class loginScreen extends State<LoginScreen> {
       "password": passwordController.text,
     };
     final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
-    // var response = await http.get(Uri.parse('https://6e36-184-144-65-222.ngrok-free.app/user/login'));
     Uri uri = Uri.parse("https://basically-polished-dassie.ngrok-free.app/user/login");
-    // uri.replace(queryParameters: requestBody);
     print(uri);
     var response =
         await http.post(uri, headers: headers, body: json.encode(requestBody));
@@ -237,6 +239,8 @@ class loginScreen extends State<LoginScreen> {
         errorCase = true;
       });
     } else {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', json.decode(response.body)['data']['token']);
       setState(() {
         errorCase = false;
         Navigator.push(
