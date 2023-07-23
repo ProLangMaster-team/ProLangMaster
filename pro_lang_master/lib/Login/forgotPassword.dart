@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'dart:ffi';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -85,6 +86,14 @@ class forgotpassword extends State<ForgotPassword> {
                 ),
                 child: Text("Send", style: TextStyle(fontSize: 18)),
               ),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white,
+                textStyle: const TextStyle(fontSize: 18),
+              ),
+              onPressed: () {},
+              child: const Text('Back to sign in'),
             ),
             Container(
               margin: const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
