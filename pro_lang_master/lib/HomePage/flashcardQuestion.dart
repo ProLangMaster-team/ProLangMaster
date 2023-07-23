@@ -27,7 +27,6 @@ class flashCard extends State<FlashCard> {
   var isCorrectOptionSelected = false;
   GlobalKey<FlipCardState> questionFlashCard = GlobalKey<FlipCardState>();
   List<Questions> questions = [];
-  final options = [{"value": 'option1', "selected": false}, {"value": 'option1', "selected": false },{"value": 'option1', "selected": false },{"value": 'option1', "selected": false }];
   String selectedOption = '';
   @override
   Widget build(BuildContext context) {
@@ -67,6 +66,7 @@ class flashCard extends State<FlashCard> {
                                   setState(() {
                                     selectedOption = option.value;
                                     option.isSelected = !(option.isSelected);
+
                                   });
                                 },
                                 style: ElevatedButton.styleFrom(
@@ -174,7 +174,7 @@ class flashCard extends State<FlashCard> {
           );
         }
         questions.add(
-          Questions(index["question"], "mcq", options)
+          Questions(index["question"], "mcq", options, index["answer"])
         );
       }
     });
@@ -190,8 +190,9 @@ class flashCard extends State<FlashCard> {
 class Questions {
   String question;
   String type;
+  String correctAnswer;
   List<Options> options;
-  Questions(this.question, this.type, this.options);
+  Questions(this.question, this.type, this.options, this.correctAnswer);
 }
 
 class Options {
