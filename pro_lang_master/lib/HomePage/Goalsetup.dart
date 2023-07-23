@@ -3,14 +3,14 @@ import 'dart:ffi';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class FluencyLevel extends StatefulWidget {
-  const FluencyLevel({Key? key}) : super(key: key);
+class Goalsetup extends StatefulWidget {
+  const Goalsetup({Key? key}) : super(key: key);
 
   @override
-  fluencyLevel createState() => fluencyLevel();
+  goalSetup createState() => goalSetup();
 }
 
-class fluencyLevel extends State<FluencyLevel> {
+class goalSetup extends State<Goalsetup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +35,7 @@ class fluencyLevel extends State<FluencyLevel> {
             Container(
               margin: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
               child: const Text(
-                "Level of Fluency",
+                "Goal Set Up",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 32,
@@ -57,7 +57,7 @@ class fluencyLevel extends State<FluencyLevel> {
                     const Checkbox(value: false, onChanged: null),
                     SizedBox(width: 80),
                     const Text(
-                      "No Proficiency",
+                      "Daily",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
@@ -71,7 +71,7 @@ class fluencyLevel extends State<FluencyLevel> {
                     const Checkbox(value: false, onChanged: null),
                     SizedBox(width: 53),
                     const Text(
-                      "Elementary Proficiency",
+                      "Every Two days",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
@@ -85,7 +85,7 @@ class fluencyLevel extends State<FluencyLevel> {
                     const Checkbox(value: false, onChanged: null),
                     SizedBox(width: 49),
                     const Text(
-                      "Professional Proficiency",
+                      "Weekly",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,

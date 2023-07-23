@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pro_lang_master/Login/createpassword.dart';
 
 class Verification extends StatefulWidget {
   const Verification({Key? key}) : super(key: key);
@@ -13,19 +14,25 @@ class verification extends State<Verification> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        backgroundColor: Color(0XFF826FA9),
+        leading: BackButton(
+          color: Colors.white,
+        ),
+      ),
       body: Center(
         child: Container(
           color: const Color(0XFF826FA9),
           width: double.maxFinite,
           height: double.maxFinite,
-          padding: const EdgeInsetsDirectional.fromSTEB(0, 100, 0, 0),
+          padding: const EdgeInsetsDirectional.fromSTEB(0, 41, 0, 0),
           child: Column(children: <Widget>[
             Container(
               margin: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 40),
               child: Image.asset('Assets/mercury.png'),
             ),
             Container(
-              margin: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 79.37),
+              margin: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 59.37),
               child: const Text(
                 "Verification",
                 style: TextStyle(
@@ -37,7 +44,7 @@ class verification extends State<Verification> {
               ),
             ),
             Container(
-              margin: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 43),
+              margin: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 23),
               child: const Text(
                 "Enter verification code",
                 style: TextStyle(
@@ -75,14 +82,21 @@ class verification extends State<Verification> {
             Container(
               width: 150,
               padding: const EdgeInsetsDirectional.all(10),
-              child: const TextButton(
-                onPressed: null,
+              child: TextButton(
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStatePropertyAll<Color>(Color(0XFF48386A)),
                   foregroundColor:
                       MaterialStatePropertyAll<Color>(Colors.white),
                 ),
+                onPressed: () {
+                  setState(() {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => NewPassword(token: "")),
+                    );
+                  });
+                },
                 child: Text("Enter", style: TextStyle(fontSize: 18)),
               ),
             ),

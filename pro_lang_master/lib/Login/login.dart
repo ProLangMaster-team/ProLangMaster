@@ -3,7 +3,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:email_validator/email_validator.dart';
+import 'package:pro_lang_master/HomePage/selectLanguage.dart';
+import 'package:pro_lang_master/Login/CommonComponents/loading.dart';
+import 'package:pro_lang_master/Login/forgotPassword.dart';
+import 'package:pro_lang_master/Login/signUp.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -19,11 +24,12 @@ class loginScreen extends State<LoginScreen> {
 
   var passwordHidden = true;
   var errorCase = false;
-
+  var selectedValue = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body:
+      Center(
         child: Container(
           color: const Color(0XFF826FA9),
           width: double.maxFinite,
@@ -35,14 +41,14 @@ class loginScreen extends State<LoginScreen> {
               child: Image.asset('Assets/mercury.png'),
             ),
             errorCase
-                ? Text(
-              'Username or password incorrect',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.red,
-              ),
-            )
+                ? const Text(
+                    'Username or password incorrect',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                    ),
+                  )
                 : Container(),
             Container(
               width: 300,
@@ -69,7 +75,7 @@ class loginScreen extends State<LoginScreen> {
                   obscureText: passwordHidden,
                   decoration: InputDecoration(
                       filled: true,
-                      border: OutlineInputBorder(
+                      border: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                       ),
@@ -102,12 +108,20 @@ class loginScreen extends State<LoginScreen> {
                   ),
                   Container(
                     margin: const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                    child: const Text(
-                      "fogot password?",
-                      style: TextStyle(
+                    child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ForgotPassword()),
+                          );
+                        });
+                      },
+                      child: const Text("forgot password?",
+                        style: TextStyle(
                         color: Colors.black,
                         fontSize: 16,
-                      ),
+                      ),),
                     ),
                   ),
                 ],
@@ -123,24 +137,29 @@ class loginScreen extends State<LoginScreen> {
                     padding: const EdgeInsetsDirectional.all(10),
                     child: TextButton(
                       onPressed: login,
-                      style: ButtonStyle(
+                      style: const ButtonStyle(
                         backgroundColor:
-                        MaterialStatePropertyAll<Color>(Color(0XFF48386A)),
+                            MaterialStatePropertyAll<Color>(Color(0XFF48386A)),
                         foregroundColor:
-                        MaterialStatePropertyAll<Color>(Colors.white),
+                            MaterialStatePropertyAll<Color>(Colors.white),
                       ),
-                      child: Text("Login", style: TextStyle(fontSize: 25)),
+                      child: const Text("Login", style: TextStyle(fontSize: 25)),
                     ),
                   ),
                   Container(
                     padding: const EdgeInsetsDirectional.all(10),
-                    child: const TextButton(
-                      onPressed: null,
+                    child: TextButton(
+                      onPressed: (() {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignUp()),
+                        );
+                      }),
                       style: ButtonStyle(
                         backgroundColor:
-                        MaterialStatePropertyAll<Color>(Color(0XFF48386A)),
+                            MaterialStatePropertyAll<Color>(Color(0XFF48386A)),
                         foregroundColor:
-                        MaterialStatePropertyAll<Color>(Colors.white),
+                            MaterialStatePropertyAll<Color>(Colors.white),
                       ),
                       child: Text("Register", style: TextStyle(fontSize: 25)),
                     ),
@@ -163,7 +182,7 @@ class loginScreen extends State<LoginScreen> {
                 onPressed: null,
                 style: const ButtonStyle(
                   backgroundColor:
-                  MaterialStatePropertyAll<Color>(Colors.white),
+                      MaterialStatePropertyAll<Color>(Colors.white),
                 ),
                 child: Container(
                   width: 200,
@@ -172,7 +191,7 @@ class loginScreen extends State<LoginScreen> {
                       Image.asset('Assets/google_logo.png'),
                       Container(
                           margin:
-                          const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                              const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                           child: const Text("Login with google")),
                     ],
                   ),
@@ -210,16 +229,14 @@ class loginScreen extends State<LoginScreen> {
     print(emailController.text);
     print(passwordController.text);
     var requestBody = {
-      "user_name": emailController.text,
+      "email": emailController.text,
       "password": passwordController.text,
     };
     final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
-    // var response = await http.get(Uri.parse('https://6e36-184-144-65-222.ngrok-free.app/user/login'));
-    Uri uri = Uri.parse("https://6e36-184-144-65-222.ngrok-free.app/login");
-    // uri.replace(queryParameters: requestBody);
+    Uri uri = Uri.parse("https://basically-polished-dassie.ngrok-free.app/user/login");
     print(uri);
     var response =
-    await http.post(uri, headers: headers, body: json.encode(requestBody));
+        await http.post(uri, headers: headers, body: json.encode(requestBody));
     print(response.statusCode);
     print(json.decode(response.body));
     if (json.decode(response.body)['status'] == 'error') {
@@ -228,9 +245,14 @@ class loginScreen extends State<LoginScreen> {
         errorCase = true;
       });
     } else {
-      // TODO: logic to redirect to next screen
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', json.decode(response.body)['data']['token']);
       setState(() {
         errorCase = false;
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => selectLanguage()),
+        );
       });
     }
   }
