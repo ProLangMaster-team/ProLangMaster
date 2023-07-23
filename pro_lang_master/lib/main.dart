@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pro_lang_master/Login/forgotPassword.dart';
 import 'package:pro_lang_master/Login/login.dart';
+import 'package:pro_lang_master/Login/signUp.dart';
 import 'package:pro_lang_master/Login/verification.dart';
 import 'package:pro_lang_master/Login/login.dart';
 import 'package:pro_lang_master/Login/selectLanguage.dart';
@@ -8,6 +9,7 @@ import 'package:pro_lang_master/Login/verification.dart';
 import 'package:pro_lang_master/Login/Fluencylevel.dart';
 import 'package:pro_lang_master/Login/UserDetails.dart';
 import 'package:pro_lang_master/Login/flashcardQuestion.dart';
+import 'package:pro_lang_master/Login/loading.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const FlashCard(),
+      home: const SignUp(),
     );
   }
 }
@@ -47,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[FlashCard()],
+          children: <Widget>[SignUp()],
         ),
       ),
       floatingActionButton: FloatingActionButton(
