@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pro_lang_master/Login/correct.dart';
 import 'package:pro_lang_master/Login/forgotPassword.dart';
 import 'package:pro_lang_master/Login/login.dart';
 import 'package:pro_lang_master/Login/signUp.dart';
@@ -18,6 +19,7 @@ import 'package:pro_lang_master/Login/login.dart';
 import 'package:pro_lang_master/HomePage/selectLanguage.dart';
 import 'package:pro_lang_master/Login/verification.dart';
 import 'package:pro_lang_master/HomePage/Fluencylevel.dart';
+import 'package:pro_lang_master/Login/incorrect.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const LoginScreen(),
+      home: const InCorrect(),
     );
   }
 }
@@ -57,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[LoginScreen()],
+          children: <Widget>[InCorrect()],
         ),
       ),
       floatingActionButton: FloatingActionButton(
