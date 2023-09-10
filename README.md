@@ -14,3 +14,4 @@ Langugage learning app ASET project
 ## Deployment
 
 - ngrok http --domain=basically-polished-dassie.ngrok-free.app 8000
+
